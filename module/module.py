@@ -99,7 +99,8 @@ class Canopsis_broker(BaseModule):
             logger.info('[Canopsis] Ask the broker for instance id (#{0}) data'.format(c_id))
 
             msg = Message(id=0, type='NeedData', data={'full_instance_id': c_id}, source=self.get_name())
-            self.from_q.put(msg)
+            if self.from_q:
+                self.from_q.put(msg)
 
             self.last_need_data_send = time.time()
 
